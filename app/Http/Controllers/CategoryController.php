@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
+
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return "ondex";
+        $categories = Category::latest()->get();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return "ok";
+        return view('category.create');
     }
 
     /**
@@ -34,7 +37,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required'
+        ]);
+        Category::create([
+            'name' => $request->get('name')
+        ]);
+
+        return redirect()->back()->with('message', 'New category added!');
     }
 
     /**

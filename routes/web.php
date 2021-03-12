@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Auth::routes();
+Auth::routes();
 
-Route::get('/home', 'homeController@index')->name('home');
-Route::resource('category', 'CategoryController');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/food', 'FoodController');
+Route::resource('/category', 'CategoryController');
