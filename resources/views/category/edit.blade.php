@@ -8,12 +8,17 @@
                 <div class="card-header">Add New Category</div>
 
                 <div class="card-body">
-                    <form action="{{route('category.update')}}" method="post">
+                    <form action="{{route('category.update', [$category->id])}}" method="post">
                         @csrf
                         {{method_field('PUT')}}
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">submit</button>
